@@ -176,8 +176,8 @@ display:flex;flex-direction:column;transform:translateY(-8px);opacity:0;pointer-
 .rail .raildot{width:13px;height:13px;border-radius:50%;background:#fff;border:2.5px solid #B06A4A;margin-top:22px;z-index:1;transition:all .2s;}
 .itin-item.active .raildot{border-color:var(–signal);background:var(–signal);transform:scale(1.25);}
 
-.icard{margin:9px 0 7px;background:#fff;border:1px solid var(–line);border-radius:var(–r-md);padding:10px 12px 11px;cursor:pointer;transition:transform .14s, box-shadow .14s, border-color .14s;position:relative;}
-.icard:hover{box-shadow:var(–sh-card);}
+.icard{margin:9px 0 7px;background:var(–surface-2);border:1px solid var(–line);border-radius:var(–r-md);padding:10px 12px 11px;cursor:pointer;box-shadow:var(–sh-card);transition:transform .14s, box-shadow .14s, border-color .14s;position:relative;}
+.icard:hover{box-shadow:var(–sh-pop);border-color:var(–route-soft);}
 .itin-item.active .icard{border-color:var(–signal);box-shadow:0 0 0 3px var(–signal-soft);}
 .icard.dragging{opacity:.4;}
 .icard .ic-head{display:flex;align-items:center;gap:7px;}
