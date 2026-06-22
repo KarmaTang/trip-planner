@@ -359,9 +359,9 @@ html,body{overflow:auto;height:auto;overscroll-behavior:auto;}
       <div class="map-stage">
         <svg id="mapSvg" class="map" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid meet">
           <defs><filter id="pinShadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#1C2A2E" flood-opacity="0.22"/></filter></defs>
-          <rect x="0" y="0" width="1000" height="560" style="fill:var(--paper-2)"/>
+          <rect x="0" y="0" width="1000" height="560" fill="#EFEADE"/>
           <g id="gridLayer"></g>
-          <g id="compass" transform="translate(948 56)" opacity=".5"><circle r="17" fill="#fff" stroke-width="1.5" style="stroke:var(--line)"/><path d="M0 -10 L4 2 L0 -1 L-4 2 Z" style="fill:var(--signal)"/><text x="0" y="13" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="9" style="fill:var(--ink-soft)">N</text></g>
+          <g id="compass" transform="translate(948 56)" opacity=".5"><circle r="17" fill="#fff" stroke="#E2DACB" stroke-width="1.5"/><path d="M0 -10 L4 2 L0 -1 L-4 2 Z" fill="#EE6A3C"/><text x="0" y="13" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="9" fill="#5E6E70">N</text></g>
           <g id="routeLayer"></g>
           <g id="nodeLayer"></g>
           <g id="scaleLayer"></g>
@@ -655,8 +655,8 @@ function drawGrid(ps){
   const lngMin=lngAt(0),lngMax=lngAt(1000),latMax=latAt(0),latMin=latAt(560);
   const step=niceNumber(Math.max(lngMax-lngMin,latMax-latMin)/6);
   let h='';
-  for(let lng=Math.ceil(lngMin/step)*step; lng<=lngMax; lng+=step){ const x=px(lng); if(x<-40||x>1040)continue; h+='<line x1="'+x.toFixed(1)+'" y1="0" x2="'+x.toFixed(1)+'" y2="560" stroke-width="1" opacity=".5" style="stroke:var(--line)"/>'; }
-  for(let lat=Math.ceil(latMin/step)*step; lat<=latMax; lat+=step){ const y=py(lat); if(y<-40||y>600)continue; h+='<line x1="0" y1="'+y.toFixed(1)+'" x2="1000" y2="'+y.toFixed(1)+'" stroke-width="1" opacity=".5" style="stroke:var(--line)"/>'; }
+  for(let lng=Math.ceil(lngMin/step)*step; lng<=lngMax; lng+=step){ const x=px(lng); if(x<-40||x>1040)continue; h+='<line x1="'+x.toFixed(1)+'" y1="0" x2="'+x.toFixed(1)+'" y2="560" stroke="#E2DACB" stroke-width="1" opacity=".5"/>'; }
+  for(let lat=Math.ceil(latMin/step)*step; lat<=latMax; lat+=step){ const y=py(lat); if(y<-40||y>600)continue; h+='<line x1="0" y1="'+y.toFixed(1)+'" x2="1000" y2="'+y.toFixed(1)+'" stroke="#E2DACB" stroke-width="1" opacity=".5"/>'; }
   g.innerHTML=h;
 }
 function drawScaleBar(ps){
@@ -666,18 +666,18 @@ function drawScaleBar(ps){
   const nice=niceNumber(240*kmPerUnit), barLen=Math.min(nice/kmPerUnit,600);
   const x2=948,x1=x2-barLen,y=528;
   const label=nice>=1?(nice+' km'):(Math.round(nice*1000)+' m');
-  g.innerHTML='<line x1="'+x1.toFixed(1)+'" y1="'+y+'" x2="'+x2+'" y2="'+y+'" stroke-width="2" style="stroke:var(--ink-soft)"/>'+
-    '<line x1="'+x1.toFixed(1)+'" y1="'+(y-4)+'" x2="'+x1.toFixed(1)+'" y2="'+(y+4)+'" stroke-width="2" style="stroke:var(--ink-soft)"/>'+
-    '<line x1="'+x2+'" y1="'+(y-4)+'" x2="'+x2+'" y2="'+(y+4)+'" stroke-width="2" style="stroke:var(--ink-soft)"/>'+
-    '<text x="'+((x1+x2)/2).toFixed(1)+'" y="'+(y-7)+'" text-anchor="middle" font-family="Space Grotesk" font-size="13" font-weight="600" paint-order="stroke" stroke-width="3" style="fill:var(--ink-soft);stroke:var(--paper-2)">'+label+'</text>';
+  g.innerHTML='<line x1="'+x1.toFixed(1)+'" y1="'+y+'" x2="'+x2+'" y2="'+y+'" stroke="#5E6E70" stroke-width="2"/>'+
+    '<line x1="'+x1.toFixed(1)+'" y1="'+(y-4)+'" x2="'+x1.toFixed(1)+'" y2="'+(y+4)+'" stroke="#5E6E70" stroke-width="2"/>'+
+    '<line x1="'+x2+'" y1="'+(y-4)+'" x2="'+x2+'" y2="'+(y+4)+'" stroke="#5E6E70" stroke-width="2"/>'+
+    '<text x="'+((x1+x2)/2).toFixed(1)+'" y="'+(y-7)+'" text-anchor="middle" font-family="Space Grotesk" font-size="13" font-weight="600" fill="#5E6E70" paint-order="stroke" stroke="#EFEADE" stroke-width="3">'+label+'</text>';
 }
 function paint(ps, actId, interactive){
   drawGrid(ps);
   const pts=buildPoints(ps), routeLayer=$('#routeLayer');
   if(pts.length>1){
     const dpath=pts.map((p,i)=>(i?'L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1)).join(' ');
-    routeLayer.innerHTML='<path d="'+dpath+'" fill="none" stroke-width="9" style="stroke:var(--route-soft)" stroke-linecap="round" stroke-linejoin="round"/>'+
-      '<path d="'+dpath+'" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 9" style="stroke:var(--route)"/>';
+    routeLayer.innerHTML='<path d="'+dpath+'" fill="none" stroke="#AED4D1" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>'+
+      '<path d="'+dpath+'" fill="none" stroke="#0E7C7B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 9"/>';
   } else routeLayer.innerHTML='';
   const HOME='<path class="ico" d="M-6 0 L0 -6 L6 0 M-4 -1 V5 H4 V-1"/>';
   const FLAG='<path class="ico" d="M-3 -6 V6 M-3 -6 H4 L1 -3 L4 0 H-3"/>';
